@@ -359,10 +359,10 @@ function getPID() {
     var geo = checkElmText(infoCont[0].getElementsByTagName("h3"), 0);
     var summary = checkElmText(document.getElementsByClassName("pv-top-card-section__summary-text"), 0);
     var container = document.getElementById("artdeco-modal-outlet").getElementsByClassName("pv-profile-section__section-info section-info")[0];
-    var phones = checkElmText(container.getElementsByClassName("ci-phone"), 0);
-    var websites = checkElmText(container.getElementsByClassName("ci-websites"), 0);
-    var emails = checkElmText(container.getElementsByClassName("ci-email"), 0);
-    var twitter = checkElmText(container.getElementsByClassName("ci-twitter"), 0);
+    var phones = checkElmText(container.getElementsByClassName("ci-phone"), 0).replace(/Phone/, '').replace(/\n/g, '').trim();
+    var websites = checkElmText(container.getElementsByClassName("ci-websites"), 0).replace(/Websites/, '').replace(/\n/g, '').trim();
+    var emails = checkElmText(container.getElementsByClassName("ci-email"), 0).replace(/Email/, '').replace(/\n/g, '').trim();
+    var twitter = checkElmText(container.getElementsByClassName("ci-twitter"), 0).replace(/Twitter/, '').replace(/\n/g, '').trim();
 
     pidInformation.push({
       "fullname": fullname,
@@ -376,12 +376,14 @@ function getPID() {
     });
   }, 3000);
 }
-scr.then(runFirstExpansion()).then(expander("lt-line-clamp__more")).then(clickContact())
-  .then(getJobExperience())
-  .then(getEducationalExperience())
-  .then(getRecommendations())
-  .then(getAccomplishments())
-  .then(getSkills())
-  .then(getPID())
-  .then(killDialog())
-  .then(fullObject())
+scr.then(runFirstExpansion())
+.then(expander("lt-line-clamp__more"))
+.then(clickContact())
+.then(getJobExperience())
+.then(getEducationalExperience())
+.then(getRecommendations())
+.then(getAccomplishments())
+.then(getSkills())
+.then(getPID())
+.then(killDialog())
+.then(fullObject())
