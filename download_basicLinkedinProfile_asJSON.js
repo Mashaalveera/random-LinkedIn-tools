@@ -188,7 +188,7 @@ function getJobExperience() {
       for (w = 0; w < obj.length; w++) {
         let workliContainer1 = obj[w].parentElement.parentElement;
         let companyName = workliContainer1.getElementsByTagName("h4")[0].getElementsByTagName("span")[1].innerText.trim();
-        let companyId = vld(/\d+/.exec(workliContainer1.getElementsByTagName("a")[0].href), 0);
+        let companyId = vld(/(?<=company\/)\d+/.exec(workliContainer1.getElementsByTagName("a")[0].href), 0);
         let jobTitle = workliContainer1.getElementsByTagName("h3")[0].innerText.trim();
         let dates = checker2(workliContainer1.getElementsByTagName("h4"),1);
         let geo = checker2(workliContainer1.getElementsByTagName("h4"),3);
@@ -211,7 +211,7 @@ function getJobExperience() {
       for (w = 0; w < obj.length; w++) {
         let deetz = obj[w].getElementsByClassName("pv-entity__position-group-role-item");
         let companyName = obj[w].parentElement.getElementsByTagName("h3")[0].getElementsByTagName("span")[1].innerText.trim();
-        let companyId = vld(/\d+/.exec(obj[w].parentElement.getElementsByTagName("a")[0].href), 0);
+        let companyId = vld(/(?<=company\/)\d+/.exec(obj[w].parentElement.getElementsByTagName("a")[0].href), 0);
 
         for (ul = 0; ul < deetz.length; ul++) {
           let jobTitle = deetz[ul].getElementsByTagName("h3")[0].getElementsByTagName("span")[1].innerText.trim();
