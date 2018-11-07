@@ -381,6 +381,7 @@ scr.then(runFirstExpansion()).then(expander("lt-line-clamp__more")).then(clickCo
   .then(getEducationalExperience())
   .then(getRecommendations())
   .then(getAccomplishments())
+  .then(getSkills())
   .then(getPID())
   .then(killDialog())
   .then(fullObject())
