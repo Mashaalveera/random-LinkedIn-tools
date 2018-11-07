@@ -248,7 +248,7 @@ function getEducationalExperience() {
     function parseEdu(obj) {
       for (w = 0; w < edu_exp.length; w++) {
         let eduId = vld(/\d+/.exec(edu_exp[w].getElementsByTagName("a")[0].href), 0);
-        let eduInfo = edu_exp[w].getElementsByClassName("pv-entity__degree-info")[0]
+        let eduInfo = edu_exp[w].getElementsByClassName("pv-entity__degree-info")[0];
         let eduName = eduInfo.getElementsByTagName("h3")[0].innerText;
         let eduDeg = (vld(/Degree Name\n(.+)/.exec(eduInfo.innerText), 1) + ' ' + vld(/Field Of Study\n(.+)/.exec(eduInfo.innerText), 1)).trim();
         let dates = checker2(edu_exp[w].getElementsByClassName("pv-entity__dates"), 0);
