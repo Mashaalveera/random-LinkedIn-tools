@@ -5,11 +5,13 @@ var socialBar = doc.getElementsByClassName('feed-shared-social-actions feed-shar
 function getJobPostingObj(obj, n) {
       setTimeout(() => {
         doc.getElementById(obj.getAttribute('id')).scrollIntoView();
-
-        obj.getElementsByClassName('job-card-search--clickable')[0].click();
+        var likeBtn = obj.getElementsByTagName('button')[0];
+		var btnStatus = obj.getElementsByClassName('visually-hidden')[0].innerText;
+		if(btnStatus == 'Like'){
+			likeBtn.click()
+		}
       }, ((n + 1) * 1800));
     }
-
-for(i=0; i<socialBar.length; i++){
+for(i=0; i<1001; i++){
 	getJobPostingObj(socialBar[i], i);
 }
