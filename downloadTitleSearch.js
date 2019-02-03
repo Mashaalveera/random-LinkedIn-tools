@@ -1,3 +1,5 @@
+var isRecruiter = /\/recruiter|\/cap/i.test(window.location.href);
+
 function dragElement() {
   this.style.background = 'rgb(85, 41, 135)';
   this.style.transition = 'all 566ms';
@@ -115,30 +117,31 @@ textbox_1.setAttribute("id", "textbox_code");
 textbox_1.setAttribute("placeholder", "Titles Search");
 document.getElementById("pop_container").appendChild(textbox_1);
 textbox_1.style.width = "99%";
-textbox_1.style.height = "9%";
+textbox_1.style.height = "14%";
 textbox_1.style.padding = "6px";
 textbox_1.style.border = "1px solid rgb(85, 41, 135)";
-textbox_1.style.background = "rgb(19, 25, 35)";
+textbox_1.style.background = isRecruiter ? "rgb(19, 25, 35)" : "rgb(193, 183, 204)";
 textbox_1.style.display = "block";
 textbox_1.style.fontSize = "1.2em";
 textbox_1.style.userSelect = "none";
 textbox_1.style.fontFamily = '"Courier New", monospace';
-textbox_1.style.color = "white";
+textbox_1.style.color = isRecruiter ? "white" : "black";
+
 
 var textbox_2 = document.createElement("textarea");
 textbox_2.setAttribute("id", "textbox_code2");
 textbox_2.setAttribute("placeholder", "saveAs filename");
 document.getElementById("pop_container").appendChild(textbox_2);
 textbox_2.style.width = "99%";
-textbox_2.style.height = "9%";
+textbox_2.style.height = "14%";
 textbox_2.style.padding = "6px";
 textbox_2.style.border = "1px solid rgb(85, 41, 135)";
-textbox_2.style.background = "rgb(19, 25, 35)";
+textbox_2.style.background = isRecruiter ? "rgb(19, 25, 35)" : "rgb(193, 183, 204)";
 textbox_2.style.display = "block";
 textbox_2.style.fontSize = "1.2em";
 textbox_2.style.userSelect = "none";
 textbox_2.style.fontFamily = '"Courier New", monospace';
-textbox_2.style.color = "white";
+textbox_2.style.color = isRecruiter ? "white" : "black";
 
 var dlBtn = document.createElement("button");
 document.getElementById("pop_container").appendChild(dlBtn);
