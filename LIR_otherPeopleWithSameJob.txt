@@ -1,1 +1,288 @@
-javascript:(function()%7Bvar%20reg%20%3D%20(elm%2C%20n)%20%3D%3E%20elm%20!%3D%20null%20%3F%20elm%5Bn%5D%20%3A%20''%3Bvar%20cn%20%3D%20(ob%2C%20nm)%20%3D%3E%20ob.getElementsByClassName(nm)%3Bvar%20tn%20%3D%20(ob%2C%20nm)%20%3D%3E%20ob.getElementsByTagName(nm)%3Bvar%20gi%20%3D%20(ob%2C%20nm)%20%3D%3E%20ob.getElementById(nm)%3Bvar%20noHTML%20%3D%20(str)%20%3D%3E%20str.replace(%2F%3C.%2B%3F%3E%2Fg%2C%20'').replace(%2F%5Cs%2B%2Fg%2C%20'%20').replace(%2F%26.%2B%3F%3B%2Fg%2C%20'')%3Bvar%20delay%20%3D%20(ms)%20%3D%3E%20new%20Promise(res%20%3D%3E%20setTimeout(res%2C%20ms))%3Bvar%20reg%20%3D%20(elm%2C%20n)%20%3D%3E%20elm%20!%3D%20null%20%3F%20elm%5Bn%5D%20%3A%20''%3Bvar%20delay%20%3D%20(ms)%20%3D%3E%20new%20Promise(res%20%3D%3E%20setTimeout(res%2C%20ms))%3Bfunction%20skillsCleaner(arr)%20%7Bif%20(arr%20%3D%3D%20null)%20return%20null%3Bvar%20temp%20%3D%20%5B%5D%3Barr.forEach(itm%20%3D%3E%20%2F%2C%2F.test(itm)%20%3F%20itm.split('%2C').forEach(elm%20%3D%3E%20temp.push(elm))%20%3A%20temp.push(itm))%3Breturn%20temp%3B%7Dfunction%20getLIRlink()%20%7Bvar%20atags%20%3D%20document.getElementsByTagName('a')%3Bfor%20(i%20%3D%200%3B%20i%20%3C%20atags.length%3B%20i%2B%2B)%20%7Bvar%20lirAttr%20%3D%20atags%5Bi%5D.getAttribute('data-control-name')%3Bif%20(lirAttr%20%3D%3D%20'view_profile_in_recruiter')%20%7Breturn%20atags%5Bi%5D.href%7D%7D%7Dfunction%20normalize(str)%20%7Bvar%20arr%20%3D%20Array.from(str)%3Bvar%20temp%20%3D%20''%3Barr.forEach(itm%20%3D%3E%20%2F%5BA-Z%5D%2F.test(itm)%20%3F%20temp%20%3D%20temp%20%2B%20'%20'%20%2B%20itm%20%3A%20temp%20%3D%20temp%20%2B%20itm)%3Breturn%20temp%3B%7Dfunction%20cleanName(str)%20%7Breturn%20str.replace(%2F(%3F%3C%3D%5E.%2B%3F)%5Cs%2B-%5Cs%2B.%2B%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*%5BsSJj%5D%5BRr%5D.%2B%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*(III%7CIV%7CII).*%7C(%3F%3C%3D%5E.%2B%3F)%5Cb%2C.*%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*%5C(.*%2F%2C%20'')%3B%7Dfunction%20fixCase(fullname)%20%7Breturn%20fullname.replace(%2F%5Cw%5CS*%2Fg%2C%20(txt)%20%3D%3E%20%7Breturn%20txt.charAt(0).toUpperCase()%20%2B%20txt.substr(1).toLowerCase()%3B%7D)%3B%7Dfunction%20fixDate(str)%20%7Bif%20(str%20%3D%3D%20null)%20return%20''%3Bvar%20three%20%3D%20str.replace(%2F(%3F%3C%3D%5Ba-zA-Z%5D%7B3%7D).%2B%2Fg%2C%20'')%3Breturn%20str.replace(%2F%5Ba-zA-Z%5D%2B%2F%2C%20three)%3B%7Dfunction%20getGeos()%7Bvar%20cont%20%3D%20cn(document%2C'location%20searchable')%5B0%5D%3Bvar%20atag%20%3D%20cont%20%3F%20tn(cont%2C%20'a')%5B0%5D%20%3A%20null%3Bvar%20href%20%3D%20atag%20%3F%20atag.href%20%3A%20null%3Bvar%20postal%20%3D%20href%20%3F%20reg(%2F(%3F%3C%3DpostalCode%5C%3D)%5Cd%2B%2F.exec(href)%2C0)%20%3A%20''%3Bif(%2F%5Cd%7B5%7D%2F.test(postal))%7Breturn%20'%26radiusMiles%3D50%26countryCode%3Dus%26postalCode%3D'%20%2B%20postal%3B%7Delse%7Breturn%20''%3B%7D%7Dvar%20curUrl%20%3D%20window.location.href%3Bvar%20profilePath%20%3D%20%2F(%3F%3C%3Drecruiter%5C%2Fprofile%5C%2F).%2B%3F(%3F%3D%5C%3F%7C%24)%2F.exec(curUrl)%3Bfunction%20loadingElm()%7Bvar%20loaD%20%3D%20document.createElement(%22div%22)%3BloaD.setAttribute(%22id%22%2C%20%22loader-elm%22)%3Bdocument.body.appendChild(loaD)%3BloaD.style.top%20%3D%20'10%25'%3BloaD.style.right%20%3D%20'6%25'%3BloaD.style.position%20%3D%20%22fixed%22%3BloaD.style.zIndex%20%3D%20%2210001%22%3BloaD.innerHTML%20%3D%20'%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20x%3D%220px%22%20y%3D%220px%22%20%20%20%20%20width%3D%22200px%22%20height%3D%22200px%22%20viewBox%3D%220%200%2024%2030%22%20style%3D%22enable-background%3Anew%200%200%2050%2050%3B%22%3E%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%220%22%20fill%3D%22%23333%22%20opacity%3D%220.2%22%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22opacity%22%20values%3D%220.2%3B%201%3B%20.2%22%20begin%3D%220s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22height%22%20values%3D%2210%3B%2020%3B%2010%22%20begin%3D%220s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22y%22values%3D%2210%3B%205%3B%2010%22%20begin%3D%220s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%3C%2Frect%3E%20%20%20%20%3Crect%20x%3D%228%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23333%22%20%20opacity%3D%220.2%22%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22opacity%22%20values%3D%220.2%3B%201%3B%20.2%22%20begin%3D%220.15s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22height%22%20values%3D%2210%3B%2020%3B%2010%22%20begin%3D%220.15s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22y%22%20values%3D%2210%3B%205%3B%2010%22%20begin%3D%220.15s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%3C%2Frect%3E%20%20%20%20%3Crect%20x%3D%2216%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23333%22%20%20opacity%3D%220.2%22%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22opacity%22%20values%3D%220.2%3B%201%3B%20.2%22%20begin%3D%220.3s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22height%22%20values%3D%2210%3B%2020%3B%2010%22%20begin%3D%220.3s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%20%20%3Canimate%20attributeName%3D%22y%22%20values%3D%2210%3B%205%3B%2010%22%20begin%3D%220.3s%22%20dur%3D%22555ms%22%20repeatCount%3D%22indefinite%22%20%2F%3E%20%20%20%20%3C%2Frect%3E%20%20%3C%2Fsvg%3E'%3B%7Dfunction%20killLoader()%7Bdocument.body.removeChild(document.getElementById(%22loader-elm%22))%3B%7Dasync%20function%20getFullProfileDetails(path%2Cj)%20%7BloadingElm()%3Bvar%20res%20%3D%20await%20fetch(%22https%3A%2F%2Fwww.linkedin.com%2Frecruiter%2Fprofile%2F%22%20%2B%20path%2C%20%7B%22credentials%22%3A%20%22include%22%2C%22headers%22%3A%20%7B%22accept%22%3A%20%22text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2Cimage%2Fapng%2C*%2F*%3Bq%3D0.8%22%2C%22accept-language%22%3A%20%22en-US%2Cen%3Bq%3D0.9%22%2C%22upgrade-insecure-requests%22%3A%20%221%22%7D%2C%22referrerPolicy%22%3A%20%22no-referrer-when-downgrade%22%2C%22body%22%3A%20null%2C%22method%22%3A%20%22GET%22%2C%22mode%22%3A%20%22cors%22%7D)%3Bvar%20textBod%20%3D%20await%20res.text()%3Bvar%20dat%20%3D%20reg(%2F%5C%7B%22data%22%3A%5C%7B%22breadcrumbs%22%3A.%2B%3F%22contractId%22%3A%5Cd%2B%2C%22memberId%22%3A%5Cd%2B%5C%7D%5C%7D%5C%7D%2F.exec(textBod.replace(%2F%5Cn%2Fg%2C%20''))%2C%200)%3Bvar%20jdat%20%3D%20dat%20!%3D%20''%20%3F%20JSON.parse(dat)%20%3A%20''%3Bvar%20alljobs%20%3D%20jdat.data.positions%3Bconsole.log(jdat)%3Bvar%20specLocal%20%3D%20getGeos()%3Bvar%20specJob%20%3D%20alljobs%5Bj%5D%20%3F%20alljobs%5Bj%5D%20%3A%20null%3Bvar%20specCo%20%3D%20specJob.position.companyId%20%3F%20'facet.CC%3D'%20%2B%20alljobs%5Bj%5D.position.companyId%20%3A%20'company%3D'%20%2B%20alljobs%5Bj%5D.position.companyName.replace(%2F%5Cs%2B%2Fg%2C%20'%2B')%2B'%26companyTimeScope%3DC'%3Bvar%20specTitle%20%3D%20alljobs%5Bj%5D%20%3F%20alljobs%5Bj%5D.position.title%20%3A%20''%3Bconsole.log(specTitle)%3Bvar%20jobbArr%20%3D%20alljobs%5Bj%5D%20%3F%20%5BspecCo%2C%20specTitle%2C%20specLocal%5D%20%3A%20false%3Bvar%20searchString%20%3D%20await%20otherEmployeesSearch(jobbArr)%3Bvar%20others%20%3D%20%5B%5D%3Bvar%20otherHTMLdoc%20%3D%20''%3Bvar%20otherEmployees%20%3D%20await%20getOtherEmployees(searchString)%3BotherEmployees.forEach(person%20%3D%3E%20%7Bvar%20personArr%20%3D%20parseProfData(person)%3Bif%20(jdat.data.profile.niid%20!%3D%20personArr%5B0%5D)%20others.push(personArr)%3B%7D)%3Bothers.forEach(itm%20%3D%3E%20otherHTMLdoc%20%3D%20otherHTMLdoc%20%2B%20buildHTML(itm))%3BkillLoader()%3BcreatePOPhtml(searchString%2C%20%5Balljobs.length%2C%20others.length%2C%20j%5D%2C%20otherHTMLdoc)%3B%7Dfunction%20otherEmployeesSearch(arr)%20%7Bif%20(arr%20%3D%3D%20null)%20return%20null%3Bvar%20title%20%3D%20arr%5B1%5D%20%3F%20encodeURIComponent(arr%5B1%5D.replace(%2F%5Cw%2B%5C.%5Cs*%2F%2C%20'').replace(%2F%5Cb%5Cw%7B1%2C2%7D%5Cb%5Cs%2B%2F%2C%20'').replace(%2F%5C(.%2B%3F%5C)%5Cs*%2F).replace(%2F%5Cs%2B%2Fg%2C%20'%20').trim())%20%3A%20''%3Bconsole.log(title)%3Breturn%20'https%3A%2F%2Fwww.linkedin.com%2Frecruiter%2Fapi%2Fsearch%3F'%2Barr%5B0%5D%2B'%26jobTitle%3D'%2Btitle%2Barr%5B2%5D%2B'%26start%3D0'%3B%7Dasync%20function%20getOtherEmployees(str)%20%7Bvar%20res%20%3D%20await%20fetch(str%2C%20%7B%22credentials%22%3A%20%22include%22%2C%22headers%22%3A%20%7B%22accept%22%3A%20%22text%2Fhtml%2Capplication%2Fxhtml%2Bxml%2Capplication%2Fxml%3Bq%3D0.9%2Cimage%2Fwebp%2Cimage%2Fapng%2C*%2F*%3Bq%3D0.8%22%2C%22accept-language%22%3A%20%22en-US%2Cen%3Bq%3D0.9%22%2C%22cache-control%22%3A%20%22max-age%3D0%22%2C%22upgrade-insecure-requests%22%3A%20%221%22%7D%2C%22referrerPolicy%22%3A%20%22no-referrer-when-downgrade%22%2C%22body%22%3A%20null%2C%22method%22%3A%20%22GET%22%2C%22mode%22%3A%20%22cors%22%7D)%3Bvar%20jdat%20%3D%20await%20res.json()%3Breturn%20jdat.result.searchResults%3B%7Dfunction%20parseProfData(obj)%20%7Bvar%20firstName%20%3D%20fixCase(obj.firstName)%3Bvar%20lastName%20%3D%20fixCase(cleanName(obj.lastName))%3Bvar%20headline%20%3D%20obj.headline%3Bvar%20lir_link%20%3D%20'https%3A%2F%2Fwww.linkedin.com%2Frecruiter%2Fprofile%2F'%20%2B%20obj.findAuthInputModel.asUrlParam%3Bvar%20geo%20%3D%20obj.location.replace(%2F%2C%20United%20States%2F%2C%20'')%3Bvar%20employment%20%3D%20obj.positions%3Bvar%20curJobTitle%20%3D%20employment%5B0%5D.title%20%3F%20employment%5B0%5D.title%20%3A%20''%3Bvar%20curCo%20%3D%20employment%5B0%5D.companyName%20%3F%20employment%5B0%5D.companyName%20%3A%20''%3Bvar%20curJobStart%20%3D%20employment%5B0%5D.i18nStartDate%20%3F%20employment%5B0%5D.i18nStartDate%20%3A%20''%3Bvar%20curJobEnd%20%3D%20employment%5B0%5D.i18nEndDate%20%3F%20employment%5B0%5D.i18nEndDate%20%3A%20'Now'%3Bvar%20photo%20%3D%20obj.vectorImage%20%3F%20obj.vectorImage.rootUrl%20%2B%20obj.vectorImage.artifacts%5B0%5D.fileIdentifyingUrlPathSegment%20%3A%20''%3Bvar%20basicArr%20%3D%20%5Bobj.niid%2C%20noHTML(firstName)%2C%20noHTML(lastName)%2C%20noHTML(headline)%2C%20geo%2C%20lir_link%2C%20photo%2C%20%5BnoHTML(curJobTitle)%2CnoHTML(curCo)%2CcurJobStart%2C%20curJobEnd%5D%5D%3Breturn%20basicArr%3B%7Dfunction%20buildHTML(arr)%20%7Breturn%20'%3Cdiv%20id%3D%22'%20%2B%20arr%5B0%5D%20%2B%20'%22%20style%3D%22padding%3A%2010px%3B%22%3E'%20%2B'%3Cimg%20src%3D'%20%2B%20arr%5B6%5D%20%2B%20'%20width%3D%2240px%22%20height%3D%2240px%22%20style%3D%22float%3A%20right%3B%20color%3A%20%230b868e%22%3E%3C%2Fimg%3E'%20%2B'%3Cdiv%3E%3Ca%20href%3D%22'%20%2B%20arr%5B5%5D%20%2B%20'%22%3E'%20%2B%20arr%5B1%5D%20%2B%20'%20'%20%2B%20arr%5B2%5D%20%2B%20'%3C%2Fa%3E%3C%2Fdiv%3E'%20%2B'%3Cdiv%20style%3D%22font-size%3A%20.9em%3B%22%3E'%20%2B%20arr%5B7%5D%5B0%5D%20%2B'%3C%2Fdiv%3E%3Cdiv%20style%3D%22font-size%3A%20.9em%3B%20color%3A%20%232d2d2d%3B%22%3E'%2B%20arr%5B7%5D%5B1%5D%20%2B'%3C%2Fdiv%3E%3Cdiv%20style%3D%22font-size%3A%20.9em%3B%20color%3A%20%23515151%3B%22%3E'%2B%20arr%5B7%5D%5B2%5D%20%2B'%20-%20'%2B%20arr%5B7%5D%5B3%5D%20%2B%20'%3C%2Fdiv%3E'%20%2B'%3Cdiv%20style%3D%22font-size%3A%20.9em%3B%20color%3A%20grey%3B%22%3E'%20%2B%20arr%5B4%5D%20%2B%20'%3C%2Fdiv%3E'%20%2B'%3C%2Fdiv%3E%3Cbr%3E'%3B%7Dfunction%20printDiv(tempDiv%2C%20title)%20%7Bvar%20mywin%20%3D%20window.open(''%2C%20'PRINT'%2C%20'height%3D800%2C%20width%3D1200%2Ctop%3D10%2Cleft%3D5')%3Bmywin.document.write(tempDiv)%3Bmywin.document.close()%3Bmywin.focus()%3Breturn%20true%3B%7Dfunction%20createPOPhtml(search%2C%20reslen%2C%20str)%20%7Bconsole.log(search)%3Bvar%20len%20%3D%20reslen%5B1%5D%20%3E%205%20%3F%2080%20%3A%20reslen%5B1%5D%20%3C%201%20%3F%2020%20%3A%20(reslen%5B1%5D%20*%2018)%20%3Bvar%20cDiv%20%3D%20document.createElement(%22div%22)%3BcDiv.setAttribute(%22id%22%2C%20%22pop_container%22)%3Bdocument.body.appendChild(cDiv)%3BcDiv.style.display%20%3D%20%22inline-block%22%3BcDiv.style.position%20%3D%20%22fixed%22%3BcDiv.style.overflow%20%3D%20%22scroll%22%3BcDiv.style.top%20%3D%20%228%25%22%3BcDiv.style.right%20%3D%20%223%25%22%3BcDiv.style.width%20%3D%20%2225%25%22%3BcDiv.style.height%20%3D%20len%20%2B%20%22%25%22%3BcDiv.style.padding%20%3D%20%223px%22%3BcDiv.style.background%20%3D%20%22%23424242%22%3BcDiv.style.zIndex%20%3D%20%2210000%22%3Bvar%20clsBtn%20%3D%20document.createElement(%22button%22)%3Bdocument.getElementById(%22pop_container%22).appendChild(clsBtn)%3BclsBtn.setAttribute(%22id%22%2C%20%22btn_close%22)%3Bdocument.getElementById(%22btn_close%22).innerText%20%3D%20%22%2B%22%3BclsBtn.style.position%20%3D%20%22fixed%22%3BclsBtn.style.background%20%3D%20%22Transparent%22%3BclsBtn.style.height%20%3D%20%220px%22%3BclsBtn.style.width%20%3D%20%220px%22%3BclsBtn.style.display%20%3D%20%22inline-block%22%3BclsBtn.style.transform%20%3D%20%22scale(3.9%2C%203.9)%20translate(7px%2C%20-15px)%20rotate(45deg)%22%3BclsBtn.style.borderRadius%20%3D%20%221em%22%3BclsBtn.style.padding%20%3D%20%220px%22%3BclsBtn.style.boxShadow%20%3D%20%220px%22%3BclsBtn.style.border%20%3D%20%220px%22%3BclsBtn.style.cursor%20%3D%20%22pointer%22%3BclsBtn.style.userSelect%20%3D%20%22none%22%3BclsBtn.style.fontSize%20%3D%20'1em'%3BclsBtn.style.fontWeight%20%3D%20%22bold%22%3BclsBtn.style.color%20%3D%20%22Crimson%22%3Bif%20(reslen%5B1%5D%20%3E%2024)%20%7Bvar%20otherS%20%3D%20document.createElement(%22button%22)%3Bdocument.getElementById(%22pop_container%22).appendChild(otherS)%3BotherS.setAttribute(%22id%22%2C%20%22btn_others%22)%3Bdocument.getElementById(%22btn_others%22).innerText%20%3D%20%22Open%20This%20Search%22%3BotherS.style.position%20%3D%20%22fixed%22%3BotherS.style.background%20%3D%20%22%23424242%22%3BotherS.style.display%20%3D%20%22inline-block%22%3BotherS.style.transform%20%3D%20%22translate(0px%2C%20-55px)%22%3BotherS.style.borderRadius%20%3D%20%22.2em%22%3BotherS.style.right%20%3D%20%224%25%22%3BotherS.style.border%20%3D%20%223px%20solid%20%231c1c1c%22%3BotherS.style.cursor%20%3D%20%22pointer%22%3BotherS.style.userSelect%20%3D%20%22none%22%3BotherS.style.fontSize%20%3D%20'1em'%3BotherS.style.fontWeight%20%3D%20%22bold%22%3BotherS.style.color%20%3D%20%22white%22%3BotherS.addEventListener(%22click%22%2C%20otherSearch)%3B%7Dif%20(reslen%5B0%5D%20%3E%200)%20%7Bvar%20nextJ%20%3D%20document.createElement(%22button%22)%3Bdocument.getElementById(%22pop_container%22).appendChild(nextJ)%3BnextJ.setAttribute(%22id%22%2C%20%22btn_next_%22%2Breslen%5B0%5D)%3Bdocument.getElementById(%22btn_next_%22%2Breslen%5B0%5D).innerText%20%3D%20%22Next%20Job%22%3BnextJ.style.position%20%3D%20%22fixed%22%3BnextJ.style.background%20%3D%20%22%23424242%22%3BnextJ.style.display%20%3D%20%22inline-block%22%3BnextJ.style.transform%20%3D%20%22translate(0px%2C%20-30px)%22%3BnextJ.style.borderRadius%20%3D%20%22.2em%22%3BnextJ.style.right%20%3D%20%224%25%22%3BnextJ.style.border%20%3D%20%223px%20solid%20%231c1c1c%22%3BnextJ.style.cursor%20%3D%20%22pointer%22%3BnextJ.style.userSelect%20%3D%20%22none%22%3BnextJ.style.fontSize%20%3D%20'1em'%3BnextJ.style.fontWeight%20%3D%20%22bold%22%3BnextJ.style.color%20%3D%20%22white%22%3BnextJ.addEventListener(%22click%22%2C%20async%20()%3D%3E%7BgetFullProfileDetails(profilePath%2C(reslen%5B2%5D%2B1))%3BcDiv.style.opacity%20%3D%20%220%22%3BcDiv.style.transition%20%3D%20%22opacity%201888ms%22%3Bawait%20delay(888)%3Bawait%20close()%3B%7D)%3B%7Dvar%20holder%20%3D%20document.createElement(%22div%22)%3Bdocument.getElementById(%22pop_container%22).appendChild(holder)%3Bholder.style.background%20%3D%20'white'%3Bholder.innerHTML%20%3D%20str%3Bif%20(reslen%5B1%5D%20%3D%3D%200)%20%7Bholder.style.height%20%3D%20%2230%25%22%3Bholder.innerHTML%20%3D%20%22No%20results%22%3B%7Dfunction%20close()%20%7Bdocument.body.removeChild(document.getElementById(%22pop_container%22))%3B%7Dfunction%20otherSearch()%20%7Bwindow.open(search.replace(%2Fapi%5C%2F%2F%2C%20''))%3B%7DclsBtn.addEventListener(%22click%22%2C%20close)%3B%7DgetFullProfileDetails(profilePath%2C0)%7D)()
+var reg = (elm, n) => elm != null ? elm[n] : '';
+
+var cn = (ob, nm) => ob.getElementsByClassName(nm);
+
+var tn = (ob, nm) => ob.getElementsByTagName(nm);
+
+var gi = (ob, nm) => ob.getElementById(nm);
+
+var noHTML = (str) => str.replace(/<.+?>/g, '').replace(/\s+/g, ' ').replace(/&.+?;/g, '');
+
+var delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+var reg = (elm, n) => elm != null ? elm[n] : '';
+var delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+function skillsCleaner(arr) {
+  if (arr == null) return null;
+  var temp = [];
+  arr.forEach(itm => /,/.test(itm) ? itm.split(',').forEach(elm => temp.push(elm)) : temp.push(itm));
+  return temp;
+}
+
+function getLIRlink() {
+  var atags = document.getElementsByTagName('a');
+  for (i = 0; i < atags.length; i++) {
+    var lirAttr = atags[i].getAttribute('data-control-name');
+    if (lirAttr == 'view_profile_in_recruiter') {
+      return atags[i].href
+    }
+  }
+}
+
+function normalize(str) {
+  var arr = Array.from(str);
+  var temp = '';
+  arr.forEach(itm => /[A-Z]/.test(itm) ? temp = temp + ' ' + itm : temp = temp + itm);
+  return temp;
+}
+
+function cleanName(str) {
+  return str.replace(/(?<=^.+?)\s+-\s+.+|(?<=^.+?)\s*[sSJj][Rr].+|(?<=^.+?)\s*(III|IV|II).*|(?<=^.+?)\b,.*|(?<=^.+?)\s*\(.*/, '');
+}
+
+function fixCase(fullname) {
+  return fullname.replace(/\w\S*/g, (txt) => {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
+function fixDate(str) {
+  if (str == null) return '';
+  var three = str.replace(/(?<=[a-zA-Z]{3}).+/g, '');
+  return str.replace(/[a-zA-Z]+/, three);
+}
+function getGeos(){
+	var cont = cn(document,'location searchable')[0];
+	var atag = cont ? tn(cont, 'a')[0] : null;
+	var href = atag ? atag.href : null;
+	var postal = href ? reg(/(?<=postalCode\=)\d+/.exec(href),0) : '';
+	if(/\d{5}/.test(postal)){
+		return '&radiusMiles=50&countryCode=us&postalCode=' + postal;
+    }else{
+		return ''; 
+	}
+}
+
+var curUrl = window.location.href;
+var profilePath = /(?<=recruiter\/profile\/).+?(?=\?|$)/.exec(curUrl);
+console.log(profilePath[0]);
+function loadingElm(){
+  var loaD = document.createElement("div");
+  loaD.setAttribute("id", "loader-elm");
+  document.body.appendChild(loaD);
+  loaD.style.top = '10%';
+  loaD.style.right = '6%';
+  loaD.style.position = "fixed";
+  loaD.style.zIndex = "10001";
+  loaD.innerHTML = '<svg version="1.1" id="Layer_1" x="0px" y="0px"     width="200px" height="200px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;">    <rect x="0" y="10" width="4" height="0" fill="#333" opacity="0.2">      <animate attributeName="opacity" values="0.2; 1; .2" begin="0s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="height" values="10; 20; 10" begin="0s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="y"values="10; 5; 10" begin="0s" dur="555ms" repeatCount="indefinite" />    </rect>    <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">      <animate attributeName="opacity" values="0.2; 1; .2" begin="0.15s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="height" values="10; 20; 10" begin="0.15s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="y" values="10; 5; 10" begin="0.15s" dur="555ms" repeatCount="indefinite" />    </rect>    <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">      <animate attributeName="opacity" values="0.2; 1; .2" begin="0.3s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="height" values="10; 20; 10" begin="0.3s" dur="555ms" repeatCount="indefinite" />      <animate attributeName="y" values="10; 5; 10" begin="0.3s" dur="555ms" repeatCount="indefinite" />    </rect>  </svg>';
+}
+function killLoader(){
+	document.body.removeChild(document.getElementById("loader-elm"));
+}
+async function getFullProfileDetails(path,j) {
+  loadingElm();
+  var res = await fetch("https://www.linkedin.com/recruiter/profile/" + path, {
+    "credentials": "include",
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "accept-language": "en-US,en;q=0.9",
+      "upgrade-insecure-requests": "1"
+    },
+    "referrerPolicy": "no-referrer-when-downgrade",
+    "body": null,
+    "method": "GET",
+    "mode": "cors"
+  });
+  var textBod = await res.text();
+  var dat = reg(/\{"data":\{"breadcrumbs":.+?"contractId":\d+,"memberId":\d+\}\}\}/.exec(textBod.replace(/\n/g, '')), 0);
+  var jdat = dat != '' ? JSON.parse(dat) : '';
+console.log(jdat);
+  var alljobs = jdat.data.positions;
+  var specLocal = getGeos();
+  var specJob = alljobs[j] ? alljobs[j] : null;
+  var specCo = specJob.position.companyId ? 'facet.CC=' + alljobs[j].position.companyId : 'company=' + alljobs[j].position.companyName.replace(/\s+/g, '+')+'&companyTimeScope=C';
+  var specTitle = alljobs[j] ? '&jobTitleTimeScope=C' + alljobs[j].position.title : '';
+console.log(specTitle);
+  var jobbArr = alljobs[j] ? [specCo, specTitle, specLocal] : false;
+  var searchString = await otherEmployeesSearch(jobbArr);
+  var others = [];
+  var otherHTMLdoc = '';
+
+  var otherEmployees = await getOtherEmployees(searchString);
+
+  otherEmployees.forEach(person => {
+    var personArr = parseProfData(person);
+    if (jdat.data.profile.niid != personArr[0]) others.push(personArr);
+  });
+
+  others.forEach(itm => otherHTMLdoc = otherHTMLdoc + buildHTML(itm));
+  killLoader();
+  createPOPhtml(searchString, [alljobs.length, others.length, j], otherHTMLdoc);
+
+}
+
+function otherEmployeesSearch(arr) {
+  if (arr == null) return null;
+  var title = arr[1] ? encodeURIComponent(arr[1]
+.replace(/\w+\.\s*/, '').replace(/\b\w{1,2}\b\s+/, '').replace(/\(.+?\)\s*/).replace(/\s+/g, ' ')) : '';
+console.log(title);
+  return 'https://www.linkedin.com/recruiter/api/search?'+arr[0]+'&jobTitle='+title+arr[2]+'&start=0';
+}
+
+async function getOtherEmployees(str) {
+  var res = await fetch(str, {
+    "credentials": "include",
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "accept-language": "en-US,en;q=0.9",
+      "cache-control": "max-age=0",
+      "upgrade-insecure-requests": "1"
+    },
+    "referrerPolicy": "no-referrer-when-downgrade",
+    "body": null,
+    "method": "GET",
+    "mode": "cors"
+  });
+  var jdat = await res.json();
+  return jdat.result.searchResults;
+}
+
+function parseProfData(obj) {
+  var firstName = fixCase(obj.firstName);
+  var lastName = fixCase(cleanName(obj.lastName));
+  var headline = obj.headline;
+  var lir_link = 'https://www.linkedin.com/recruiter/profile/' + obj.findAuthInputModel.asUrlParam;
+  var geo = obj.location.replace(/, United States/, '');
+  var employment = obj.positions;
+  var curJobTitle = employment[0].title ? employment[0].title : '';
+  var curCo = employment[0].companyName ? employment[0].companyName : '';
+  var curJobStart = employment[0].i18nStartDate ? employment[0].i18nStartDate : '';
+  var curJobEnd = employment[0].i18nEndDate ? employment[0].i18nEndDate : 'Now';
+
+  var photo = obj.vectorImage ? obj.vectorImage.rootUrl + obj.vectorImage.artifacts[0].fileIdentifyingUrlPathSegment : '';
+
+  var basicArr = [obj.niid, noHTML(firstName), noHTML(lastName), noHTML(headline), geo, lir_link, photo, [noHTML(curJobTitle),noHTML(curCo),curJobStart, curJobEnd]];
+  return basicArr;
+}
+
+function buildHTML(arr) {
+  return '<div id="' + arr[0] + '" style="padding: 10px;">' +
+    '<img src=' + arr[6] + ' width="40px" height="40px" style="float: right; color: #0b868e"></img>' +
+    '<div><a href="' + arr[5] + '">' + arr[1] + ' ' + arr[2] + '</a></div>' +
+    '<div style="font-size: .9em;">' + arr[7][0] +'</div><div style="font-size: .9em; color: #2d2d2d;">'+ arr[7][1] +'</div><div style="font-size: .9em; color: #515151;">'+ arr[7][2] +' - '+ arr[7][3] + '</div>' +
+    '<div style="font-size: .9em; color: grey;">' + arr[4] + '</div>' +
+    '</div><br>';
+}
+
+function printDiv(tempDiv, title) {
+  var mywin = window.open('', 'PRINT', 'height=800, width=1200,top=10,left=5');
+  mywin.document.write(tempDiv);
+  mywin.document.close();
+  mywin.focus();
+  return true;
+}
+
+function createPOPhtml(search, reslen, str) {
+console.log(search);
+var len = reslen[1] > 5 ? 80 : reslen[1] < 1 ? 20 : (reslen[1] * 18) ; 
+  var cDiv = document.createElement("div");
+  cDiv.setAttribute("id", "pop_container");
+  document.body.appendChild(cDiv);
+  cDiv.style.display = "inline-block";
+  cDiv.style.position = "fixed";
+  cDiv.style.overflow = "scroll";
+  cDiv.style.top = "8%";
+  cDiv.style.right = "3%";
+  cDiv.style.width = "25%";
+  cDiv.style.height = len + "%";
+  cDiv.style.padding = "3px";
+  cDiv.style.background = "#424242";
+  cDiv.style.zIndex = "10000";
+
+  var clsBtn = document.createElement("button");
+  document.getElementById("pop_container").appendChild(clsBtn);
+  clsBtn.setAttribute("id", "btn_close");
+  document.getElementById("btn_close").innerText = "+";
+  clsBtn.style.position = "fixed";
+  clsBtn.style.background = "Transparent";
+  clsBtn.style.height = "0px";
+  clsBtn.style.width = "0px";
+  clsBtn.style.display = "inline-block";
+  clsBtn.style.transform = "scale(3.9, 3.9) translate(7px, -15px) rotate(45deg)";
+  clsBtn.style.borderRadius = "1em";
+  clsBtn.style.padding = "0px";
+  clsBtn.style.boxShadow = "0px";
+  clsBtn.style.border = "0px";
+  clsBtn.style.cursor = "pointer";
+  clsBtn.style.userSelect = "none";
+  clsBtn.style.fontSize = '1em';
+  clsBtn.style.fontWeight = "bold";
+  clsBtn.style.color = "Crimson";
+  if (reslen[1] > 24) {
+    var otherS = document.createElement("button");
+    document.getElementById("pop_container").appendChild(otherS);
+    otherS.setAttribute("id", "btn_others");
+    document.getElementById("btn_others").innerText = "Open This Search";
+    otherS.style.position = "fixed";
+    otherS.style.background = "#424242";
+    otherS.style.display = "inline-block";
+    otherS.style.transform = "translate(0px, -55px)";
+    otherS.style.borderRadius = ".2em";
+    otherS.style.right = "4%";
+	otherS.style.border = "3px solid #1c1c1c";
+    otherS.style.cursor = "pointer";
+    otherS.style.userSelect = "none";
+    otherS.style.fontSize = '1em';
+    otherS.style.fontWeight = "bold";
+    otherS.style.color = "white";
+    otherS.addEventListener("click", otherSearch);
+  }
+  if (reslen[0] > 0) {
+    var nextJ = document.createElement("button");
+    document.getElementById("pop_container").appendChild(nextJ);
+    nextJ.setAttribute("id", "btn_next_"+reslen[0]);
+    document.getElementById("btn_next_"+reslen[0]).innerText = "Next Job";
+    nextJ.style.position = "fixed";
+    nextJ.style.background = "#424242";
+    nextJ.style.display = "inline-block";
+    nextJ.style.transform = "translate(0px, -30px)";
+    nextJ.style.borderRadius = ".2em";
+    nextJ.style.right = "4%";
+	nextJ.style.border = "3px solid #1c1c1c";
+    nextJ.style.cursor = "pointer";
+    nextJ.style.userSelect = "none";
+    nextJ.style.fontSize = '1em';
+    nextJ.style.fontWeight = "bold";
+    nextJ.style.color = "white";
+    nextJ.addEventListener("click", async ()=>{
+		getFullProfileDetails(profilePath,(reslen[2]+1));
+		cDiv.style.opacity = "0";
+		cDiv.style.transition = "opacity 1888ms";
+		await delay(888);
+		await close();
+
+	});
+  }
+
+  var holder = document.createElement("div");
+  document.getElementById("pop_container").appendChild(holder);
+  holder.style.background = 'white';
+  holder.innerHTML = str;
+
+  if (reslen[1] == 0) {
+	holder.style.height = "30%";
+  	holder.innerHTML = "No results";
+  }
+
+  function close() {
+    document.body.removeChild(document.getElementById("pop_container"));
+  }
+
+  function otherSearch() {
+    window.open(search.replace(/api\//, ''));
+  }
+  clsBtn.addEventListener("click", close);
+
+}
+getFullProfileDetails(profilePath,0);
