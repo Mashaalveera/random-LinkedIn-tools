@@ -172,7 +172,7 @@ function genTrackId(n){
   async function getFullProfileDetails(path) {
     var res = await fetch("https://www.linkedin.com/recruiter/profile/" + path);
     var textBod = await res.text();
-    var dat = await JSON.parse(reg(/\{"data":\{"breadcrumbs":.+?"contractId":\d+,"memberId":\d+\}\}\}/.exec(textBod.replace(/\n/g, '')), 0));
+    var dat = await JSON.parse(reg(/\{"data":\{"breadcrumbs":.+?"contractId":\d+,"memberId":\d+\}\}\}/.exec(textBod.replace(/\n|\u{2028}/gu, '')), 0));
     console.log(dat);
     return dat;
   }
