@@ -13,6 +13,7 @@ var LTC = (arr) =>  'https://www.linkedin.com/recruiter/api/smartsearch?companyT
 
 var FLC = (arr) => 'https://www.linkedin.com/recruiter/api/smartsearch?companyTimeScope=C&companyEntities=' + encodeURIComponent(arr[1]) + '&jobTitleTimeScope=CP&jobTitleEntities='+'&firstName=' + splitName(arr[0])[0] + '&lastName=' + splitName(arr[0])[1]+'&start=0';
 
+var containArr = [];
 
 async function searchBy(url){
   var res = await fetch(url);
@@ -21,8 +22,7 @@ async function searchBy(url){
 }
 
 async function looper(arr){
-  var containArr = [];
-  for(var i=0; i<10; i++){ //arr.length
+  for(var i=0; i<arr.length; i++){ 
 	var res = await checker(arr[i]);
     var linked = res ? res.result.searchResults.map(id=> 'www.linkedin.com/in/'+id.niid) : [];
     var obj = {
@@ -134,6 +134,7 @@ function getAsText(fileToRead) {
 function loadHandler(event) {
   jdat_file = event.target.result.split(/\r/).map(row=> row.split(/\t/).map(c=> c.trim()));;
   close();
+  alert('this will take about '+(Math.round( (jdat_file.length * 1.7) / 60 ))+' minutes to complete');
   looper(jdat_file);
 }
 
