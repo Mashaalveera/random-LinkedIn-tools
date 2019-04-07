@@ -3,8 +3,8 @@ var delay = (ms) => new Promise(res => setTimeout(res, ms));
 var rando = (n) => Math.round(Math.random() + n);
 var unq = (arr) => arr.filter((e, p, a) => a.indexOf(e) == p);
 var splitName = (s) => [reg(/^\S+/.exec(s),0), reg(/\S+$/.exec(s),0)];
-var titleClean = (s) => encodeURIComponent(s.replace(/&/, '').replace(/\s*-.+/, ''));
-var noComma = (s) => s.replace(/,/g, '');
+var titleClean = (s) => s ? encodeURIComponent(s.replace(/&/, '').replace(/\s*-.+/, '')) : '';
+var noComma = (s) => s ? s.replace(/,/g, '') : '';
 
 var FLTC = (arr) => 'https://www.linkedin.com/recruiter/api/smartsearch?companyTimeScope=C&companyEntities=' + encodeURIComponent(arr[1]) + '&jobTitleTimeScope=CP&jobTitleEntities=' + titleClean(arr[2]) + '&firstName=' + splitName(arr[0])[0] + '&lastName=' + splitName(arr[0])[1] +'&start=0';
 
