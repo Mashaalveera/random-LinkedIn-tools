@@ -24,7 +24,7 @@ async function searchBy(url){
 async function looper(arr){
   for(var i=0; i<arr.length; i++){ 
 	var res = await checker(arr[i]);
-    var linked = res ? res.result.searchResults.map(id=> 'www.linkedin.com/in/'+id.niid) : [];
+    var linked = res ? res.result.searchResults.map(id=> 'www.linkedin.com/in/'+id.niid).toString().replace(/,/g, ' ') : '';
     var obj = {
 		firstName: splitName(arr[i][0])[0], 
 		lastName: splitName(arr[i][0])[1],
