@@ -4,6 +4,7 @@ var rando = (n) => Math.round(Math.random() + n);
 var unq = (arr) => arr.filter((e, p, a) => a.indexOf(e) == p);
 var splitName = (s) => [reg(/^\S+/.exec(s),0), reg(/\S+$/.exec(s),0)];
 var titleClean = (s) => encodeURIComponent(s.replace(/&/, '').replace(/\s*-.+/, ''));
+var noComma = (s) => s.replace(/,/g, '');
 
 var FLTC = (arr) => 'https://www.linkedin.com/recruiter/api/smartsearch?companyTimeScope=C&companyEntities=' + encodeURIComponent(arr[1]) + '&jobTitleTimeScope=CP&jobTitleEntities=' + titleClean(arr[2]) + '&firstName=' + splitName(arr[0])[0] + '&lastName=' + splitName(arr[0])[1] +'&start=0';
 
@@ -13,7 +14,7 @@ var LTC = (arr) =>  'https://www.linkedin.com/recruiter/api/smartsearch?companyT
 
 var FLC = (arr) => 'https://www.linkedin.com/recruiter/api/smartsearch?companyTimeScope=C&companyEntities=' + encodeURIComponent(arr[1]) + '&jobTitleTimeScope=CP&jobTitleEntities='+'&firstName=' + splitName(arr[0])[0] + '&lastName=' + splitName(arr[0])[1]+'&start=0';
 
-var containArr = [];
+var containArr = [['First Name','Last Name','Company','Title','LinkedIn']];
 
 async function searchBy(url){
   var res = await fetch(url);
@@ -25,17 +26,19 @@ async function looper(arr){
   for(var i=0; i<arr.length; i++){ 
 	var res = await checker(arr[i]);
     var linked = res ? res.result.searchResults.map(id=> 'www.linkedin.com/in/'+id.niid).toString().replace(/,/g, ' ') : '';
-    var obj = {
-		firstName: splitName(arr[i][0])[0], 
-		lastName: splitName(arr[i][0])[1],
-		company: arr[i][1], 
-		title: arr[i][2], 
-		linkedIn: linked
-	};
+    var obj = [
+		noComma(splitName(arr[i][0])[0]), 
+		noComma(splitName(arr[i][0])[1]),
+		noComma(arr[i][1]), 
+		noComma(arr[i][2]), 
+		linked
+	];
     containArr.push(obj);
     await delay(rando(150)+1500);
   }
   console.log(containArr);
+  await delay(800);
+  downloadr(containArr, 'LinkedIn_enriched.csv');
 }
 
 async function checker(arr){
@@ -140,4 +143,35 @@ function loadHandler(event) {
 
 function errorHandler(evt) {
   if (evt.target.error.name == "NotReadableError") alert("Canno't read file !");
+}
+
+function downloadr(arr2D, filename) {
+  var data = '';
+  arr2D.forEach(row => {
+	var arrRow = '';
+	row.forEach(col => {
+	  col ? arrRow = arrRow + col.toString()
+      .replace(/,/g, ' ') + ',' : arrRow = arrRow + ' ,';
+    });
+		data = data + arrRow + '\r'; 
+  });
+  var type = 'data:text/plain;charset=utf-8,';
+
+  var file = new Blob([data], {
+    type: type
+  });
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(file, filename);
+  } else {
+    var a = document.createElement('a'),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 10);
+  }
 }
