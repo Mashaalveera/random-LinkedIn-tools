@@ -66,6 +66,7 @@ async function profileByPath(pubPath) {
 // profileByPath('basants');
 
 async function addArrToProject(projId, lirIds) {
+  try{
   var res = await fetch("https://www.linkedin.com/recruiter/api/profile/save", {
     "credentials": "include",
     "headers": {
@@ -82,11 +83,16 @@ async function addArrToProject(projId, lirIds) {
     "method": "POST",
     "mode": "cors"
   });
+  }
+  catch(err){
+    console.log(err);
+    console.log(lirIds);
+  }
 }
 
 async function loopThroughBasicProfileUrls(urls){
   var lirPaths = [];
-  var publicPaths = urls.map(i=> reg(/(?<=\/in\/).+?(?=\/|$)/.exec(i),0).trim());
+  var publicPaths = urls.map(i=> reg(/(?<=\/in\/).+?(?=\/|$)/.exec(i),0).trim()).filter(el=> el != '');
   for(var i=0; i<publicPaths.length; i++){
     var p = await profileByPath(publicPaths[i]);
     if(p) lirPaths.push(p);
