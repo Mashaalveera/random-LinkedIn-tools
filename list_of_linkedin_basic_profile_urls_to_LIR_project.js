@@ -15,7 +15,7 @@ var timer = new Date().getTime().toString().replace(/\d{4}$/, '0000');
 var rando = (n) => Math.round(Math.random() * n);
 var fixDate = (s) => s ? s.replace(/[a-zA-Z]+/, s.replace(/(?<=[a-zA-Z]{3}).+/g, '')) : '';
 
-var csrf_id = reg(/ajax:\d+/.exec(document.body.innerHTML), 0);
+var csrf_id = reg(/ajax:\d+/.exec(document.cookie), 0);
 
 var timezone = -Math.abs(new Date().getTimezoneOffset() / 60);
 
@@ -58,10 +58,15 @@ async function profileByPath(pubPath) {
   var lir = /recruiter\/profile\/.+?"/.exec(text)
   var doc = new DOMParser().parseFromString(text, 'text/html');
   var j = JSON.parse(doc.body.innerText);
-  var auth = j.data.secondaryAction.action.legacyAuthToken
+try{
+  var auth = j.data.secondaryAction.action.legacyAuthToken;
   var path = auth ? auth.viewee.replace(/\D+/g, '') + ',' + auth.token + ',' + auth.type : null;
   console.log(path);
   return path;
+}
+catch(err){
+console.log([err,j]);
+}
 }
 // profileByPath('basants');
 
