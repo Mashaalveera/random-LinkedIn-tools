@@ -21,7 +21,7 @@ teradata_leaders.forEach(tera=> {
 		cto_targets.forEach(cto=> {
 			var cjobs =  mapPositionDetails(cto.data.profile.positions);
 			cjobs.forEach(cpos=> {
-				if( (cpos.id == pos.id || new RegExp(cpos.name,'i').test(pos.name) || new RegExp(pos.name,'i').test(cpos.name)) && 
+				if( (new RegExp(cpos.name,'i').test(pos.name) || new RegExp(pos.name,'i').test(cpos.name)) && 
 					(pos.start <= cpos.end && pos.end >= cpos.start )
 				){
 					if(matchJobs.every(el=> el.target.publicLink != cto.data.profile.publicLink && cpos != el.target.job)){
