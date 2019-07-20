@@ -22,9 +22,11 @@ teradata_leaders.forEach(tera=> {
 			var cjobs =  mapPositionDetails(cto.data.profile.positions);
 			cjobs.forEach(cpos=> {
 				if( (cpos.id == pos.id || new RegExp(cpos.name,'i').test(pos.name) || new RegExp(pos.name,'i').test(cpos.name)) && 
-					(cpos.start >= pos.end || cpos.end >= pos.start )
+					(pos.start <= cpos.end && pos.end >= cpos.start )
 				){
-					matchJobs.push({leaderJob: pos, target: {firstName: cto.data.profile.firstName, lastName: cto.data.profile.lastName, targetId: cto.data.profile.niid, publicLink: cto.data.profile.publicLink, job: cpos}});
+					if(matchJobs.every(el=> el.target.publicLink != cto.data.profile.publicLink && cpos != el.target.job)){
+						matchJobs.push({leaderJob: pos, target: {firstName: cto.data.profile.firstName, lastName: cto.data.profile.lastName, targetId: cto.data.profile.niid, publicLink: cto.data.profile.publicLink, job: cpos}});
+                    }
               	}
 			}); //end of cto jobs
 			
