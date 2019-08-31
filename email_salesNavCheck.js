@@ -13,8 +13,10 @@ async function salesNav(email){
   var text = await res.text();
   var publicProfile = reg(/(?<=voyager\/api\/identity\/profiles\/).+?(?=\/memberConnections|\/privacySettings|\/memberBadges|\/networkinfo|\/profileActions)/i.exec(text),0);
   var pubLink = publicProfile ? 'https://www.linkedin.com/in/'+publicProfile : '';
-  containArr.push([email,pubLink]);
-  return [email,pubLink];
+  var upsell = /upsellOrderOrigin/.test(text);
+  var output = upsell ? [email,'LIMIT REACHED'] : [email,pubLink];
+  containArr.push(output);
+  return output;
 }
 
 async function emailLooper(emailTable){
