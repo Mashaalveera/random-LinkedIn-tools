@@ -1,7 +1,7 @@
 /*
 This only works if you have a Sales Navigator Account. 
 Do not use on more than 1200 checks in a given day.
-Watch the fucking video I provided here before using this script, and certainly before contacting me with any questions. 
+Watch the video I provided here before using this script, and certainly before contacting me with any questions. 
 https://youtu.be/Xs81OtCf8wQ
 */
 
