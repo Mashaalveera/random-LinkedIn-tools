@@ -40,7 +40,7 @@ async function loopThroughSearchRes(projectId) {
       var searchRes = res.result.searchResults;
       if (searchRes) {
         var stringPaths_2 = getLIRpathIdsFromArrOfResults(searchRes);
-        pathContainer.push(stringPaths_2)
+        pathContainer.push(stringPaths_2);
         await addArrToProject(projectId, stringPaths_2);
         numRes = res.meta.total;
         await delay(rando(1222));
