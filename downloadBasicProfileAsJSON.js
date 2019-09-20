@@ -90,23 +90,29 @@ function parseEmployment(obj) {
   temp.reverse();
   return temp;
 }
-function parseEducation(obj){
-  var arr = obj.included.filter(el=> el.degreeName != undefined);
+
+function parseEducation(obj) {
+  var named = obj.included.filter(itm => itm.logo);
+  var arr = obj.included.filter(el => el.degreeName != undefined || el.schoolUrn != undefined);
   var temp = [];
-  for(var i=0; i<arr.length; i++){
+  for (var i = 0; i < arr.length; i++) {
+    var eduMatch = named.filter(itm => arr[i].schoolUrn && itm.objectUrn.replace(/\D+/g, '') == arr[i].schoolUrn.replace(/\D+/g, ''));
+    var eduLogo = eduMatch.length > 0 && eduMatch[0].logo ? eduMatch[0].logo.rootUrl + eduMatch[0].logo.artifacts[0].fileIdentifyingUrlPathSegment : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    var eduName = eduMatch.length > 0 && eduMatch[0].schoolName ? eduMatch[0].schoolName : '';
+
     var timePeriod = arr[i].timePeriod ? arr[i].timePeriod : null;
     var start = timePeriod ? timePeriod.startDate : null;
     var end = timePeriod ? timePeriod.endDate : null;
     var endY = end ? end.year : null;
     var startY = start ? start.year : null;
     var o = {
-      schoolName: arr[i].schoolName ? arr[i].schoolName : '',
+      logo: eduLogo,
+      schoolName: eduName ? eduName : arr[i].schoolName,
       degreeName: arr[i].degreeName ? arr[i].degreeName : '',
       description: arr[i].description ? arr[i].description : '',
       fieldOfStudy: arr[i].fieldOfStudy ? arr[i].fieldOfStudy : '',
       activities: arr[i].activities ? arr[i].activities : '',
       schoolId: arr[i].schoolUrn ? arr[i].schoolUrn.replace(/\D+/g, '') : '',
-      fieldOfStudy: arr[i].fieldOfStudy ? arr[i].fieldOfStudy : '',
       startYear: startY ? startY : '',
       endYear: endY ? endY : ''
     };
@@ -115,6 +121,7 @@ function parseEducation(obj){
   temp.sort((a, b) => a.endYear - b.endYear);
   return temp;
 }
+
 function parseVolunteer(obj) {
   var arr = obj.included.filter(i=> i.role);
   var temp = [];
@@ -349,6 +356,7 @@ async function getFullProfileObject(pubId){
 async function dl(){
   var path = reg(/linkedin\.com\/in\/(.+?)\//.exec(window.location.href),1);
   var profile = await getFullProfileObject(path);
+  console.log(profile);
   downloadr(profile,path.replace(/\W+/g,'')+'.json')
 }
 if(/linkedin\.com\/in\/(.+?)\//.test(window.location.href)) dl();
