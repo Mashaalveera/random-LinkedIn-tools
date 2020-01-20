@@ -257,6 +257,7 @@ async function downloadLast7DaysNotifications(){
       var n_data = parseNotificationHTML(doc);
       n_data.forEach(d=> containArr.push([d.name.trim(),d.time,'https://www.linkedin.com/recruiter/profile/'+d.lir_path,d.text]));
       if(n_data.some(n=> new RegExp(endpoint,'i').test(n.time))){ i = 200; break; }
+      await delay(rando(233));
     }
   }
   killLoader();
