@@ -86,11 +86,11 @@ async function createNotificationHTML(){
   if(gi(document,'notification_list_box')) gi(document,'notification_list_box').outerHTML = '';
   var rect = {top: 100, left: 0, right: 0, bottom: 0};
   var cont = ele('div');
-  a(cont,[['id','notification_list_box'],    ['style', `position: fixed; top: ${rect.top}px; left: ${(rect.left)}px; z-index: ${new Date().getTime()}; width: 400px; border: 1px solid #007862; border-radius: 0.4em; background: transparent;`]  ]);
+  a(cont,[['id','notification_list_box'],    ['style', `position: fixed; top: ${rect.top}px; left: ${(rect.left)}px; z-index: ${new Date().getTime()}; width: 460px; border: 1px solid #007862; border-radius: 0.4em; background: transparent;`]  ]);
   document.body.appendChild(cont);
 
   var head = ele('div');
-  a(head, [    ['style', `display: grid; grid-template-columns: 34px 34px minmax(260px, 1fr) 34px 34px;  background: #0a1114; border: 1.6px solid #0a1114; border-top-left-radius: 0.4em; border-top-right-radius: 0.4em; cursor: move; padding: 4px;`]  ]);
+  a(head, [    ['style', `display: grid; grid-template-columns: 34px 64px 34px minmax(260px, 1fr) 34px 34px;  background: #0a1114; border: 1.6px solid #0a1114; border-top-left-radius: 0.4em; border-top-right-radius: 0.4em; cursor: move; padding: 4px;`]  ]);
   cont.appendChild(head);
   head.onmouseover = dragElement;
 
@@ -99,6 +99,12 @@ async function createNotificationHTML(){
   head.appendChild(dl);
   dl.innerHTML = svgs.save;
   dl.onclick = downloadLast7DaysNotifications;
+
+  var input = ele('input');
+  a(input, [    ['id','dl_notification_xdays'],['placeholder', `x days`],['style',`color: #004471; background: #fff; border-radius: .3em;`]  ]);
+  head.appendChild(input);
+//   input.innerHTML = svgs.save;
+//   input.onclick = downloadLast7DaysNotifications;
 
   var prev = ele('div');
   a(prev, [    ['id','prev_notification'],['style', `width: 32px; height: 32px; cursor: pointer;`]  ]);
@@ -231,14 +237,27 @@ function downloadr(arr2D, filename) {
 
 async function downloadLast7DaysNotifications(){
   loadingElm();
+  var days = gi(document,'dl_notification_xdays').value ?parseInt(gi(document,'dl_notification_xdays').value.replace(/\D+/g, '')) : 8;
+  var endpoint = days > 29 && days < 60 ? '1mnth' 
+: days > 59 && days < 90 ? '2mnth' 
+: days > 89 && days < 120 ? '3mnth' 
+: days > 119 && days < 150 ? '4mnth' 
+: days > 149 && days < 180 ? '5mnth' 
+: days > 179 ? '6mnth' 
+: days+'d';
+  console.log(endpoint);
   var containArr = [['full name','time ago','lir url','notification']];
   for(var i=0; i<100; i++){
     var res = await fetch(`https://www.linkedin.com/cap/notifications/fetchNotificationsAjax?start=${(i*10)}&count=10`);
     var text = await res.text();
-    var doc = new DOMParser().parseFromString(text,'text/html');
-    var n_data = parseNotificationHTML(doc);
+    if(/"no_more_notifications":true/.test(text)){
+      i = 200; break; 
+    }else{
+      var doc = new DOMParser().parseFromString(text,'text/html');
+      var n_data = parseNotificationHTML(doc);
       n_data.forEach(d=> containArr.push([d.name.trim(),d.time,'https://www.linkedin.com/recruiter/profile/'+d.lir_path,d.text]));
-    if(n_data.some(n=> /8d/.test(n.time))){ i = 200; break; }
+      if(n_data.some(n=> new RegExp(endpoint,'i').test(n.time))){ i = 200; break; }
+    }
   }
   killLoader();
   downloadr(containArr,'notifications.tsv');
