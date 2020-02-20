@@ -1,1 +1,221 @@
-javascript:(function()%7Basync%20function%20initProjectDownloader()%7Bvar%20reg%20%3D%20(o%2C%20n)%20%3D%3E%20o%20%3F%20o%5Bn%5D%20%3A%20''%3Bvar%20cn%20%3D%20(o%2C%20s)%20%3D%3E%20o%20%3F%20o.getElementsByClassName(s)%20%3A%20console.log(o)%3Bvar%20tn%20%3D%20(o%2C%20s)%20%3D%3E%20o%20%3F%20o.getElementsByTagName(s)%20%3A%20console.log(o)%3Bvar%20gi%20%3D%20(o%2C%20s)%20%3D%3E%20o%20%3F%20o.getElementById(s)%20%3A%20console.log(o)%3Bvar%20noHTML%20%3D%20(s)%20%3D%3E%20s.replace(%2F%3C.%2B%3F%3E%2Fg%2C%20'').replace(%2F%5Cs%2B%2Fg%2C%20'%20').replace(%2F%26.%2B%3F%3B%2Fg%2C%20'')%3Bvar%20delay%20%3D%20(ms)%20%3D%3E%20new%20Promise(res%20%3D%3E%20setTimeout(res%2C%20ms))%3Bvar%20cleanName%20%3D%20(s)%20%3D%3E%20s.replace(%2F(%3F%3C%3D%5E.%2B%3F)%5Cs%2B-%5Cs%2B.%2B%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*%5BsSJj%5D%5BRr%5D.%2B%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*(III%7CIV%7CII).*%7C(%3F%3C%3D%5E.%2B%3F)%5Cb%2C.*%7C(%3F%3C%3D%5E.%2B%3F)%5Cs*%5C(.*%2F%2C%20'')%3Bvar%20fixCase%20%3D%20(s)%20%3D%3E%20s.replace(%2F%5Cw%5CS*%2Fg%2C%20(txt)%20%3D%3E%20txt.charAt(0).toUpperCase()%20%2B%20txt.substr(1).toLowerCase())%3Bvar%20timer%20%3D%20new%20Date().getTime().toString().replace(%2F%5Cd%7B4%7D%24%2F%2C%20'0000')%3Bvar%20rando%20%3D%20(n)%20%3D%3E%20Math.round(Math.random()%20*%20n)%3Bvar%20fixDate%20%3D%20(s)%20%3D%3E%20s%20%3F%20s.replace(%2F%5Ba-zA-Z%5D%2B%2F%2C%20s.replace(%2F(%3F%3C%3D%5Ba-zA-Z%5D%7B3%7D).%2B%2Fg%2C%20''))%20%3A%20''%3Bvar%20parseDate%20%3D%20(o)%20%3D%3E%20o%20%3F%20new%20Date(o).getTime()%20%3A%20now%3Bvar%20milsec2Month%20%3D%20(n)%20%3D%3E%20Math.round(n%20%2F%202.628e%2B9)%3Bvar%20now%20%3D%20new%20Date().getTime()%3Bvar%20ele%20%3D%20(t)%20%3D%3E%20document.createElement(t)%3Bvar%20attr%20%3D%20(o%2C%20k%2C%20v)%20%3D%3E%20o.setAttribute(k%2C%20v)%3Bvar%20a%20%3D%20(l%2C%20r)%20%3D%3E%20r.forEach(a%20%3D%3E%20attr(l%2C%20a%5B0%5D%2C%20a%5B1%5D))%3Bvar%20reChar%20%3D%20(s)%20%3D%3E%20typeof%20s%20%3D%3D%20'string'%20%26%26%20s.match(%2F%26%23%5Cd%2B%3B%2Fg)%20%26%26%20s.match(%2F%26%23%5Cd%2B%3B%2Fg).length%20%3E%200%20%3F%20s.match(%2F%26%23%5Cd%2B%3B%2Fg).map(el%20%3D%3E%20%5Bel%2C%20String.fromCharCode(reg(%2F(%3F%3C%3D%26%23).%2B%3F(%3F%3D%3B)%2F.exec(el)%2C0))%5D).map(m%20%3D%3E%20s%20%3D%20s.replace(new%20RegExp(m%5B0%5D%2C%20'i')%2C%20m%5B1%5D)).pop()%20%3A%20s%3Bvar%20noHtmlEntities%20%3D%20(s)%20%3D%3E%20typeof%20s%20%3D%3D%20'string'%20%3F%20s.replace(%2F%26amp%3B%2Fg%2C%20'%26').replace(%2F%26quot%3B%2Fg%2C%20'%22').replace(%2F%26apos%3B%2Fg%2C%20%22'%22).replace(%2F%26nbsp%3B%2Fg%2C%20'%20')%20%3A%20s%3Basync%20function%20getPeopleFromProject(id%2C%20p)%20%7Bvar%20res%20%3D%20await%20fetch(%22https%3A%2F%2Fwww.linkedin.com%2Frecruiter%2Fapi%2Fprojects%2F%22%20%2B%20id%20%2B%20%22%2Fprofiles%3Fcount%3D25%26start%3D%22%20%2B%20p)%3Bvar%20d%20%3D%20await%20res.json()%3Bconsole.log(d)%3Breturn%20d%3B%7Dasync%20function%20getAllPeopleFromProject()%20%7BcreateDownloadHTML()%3Bvar%20containArr%20%3D%20%5B%5D%3Bvar%20projectId%20%3D%20reg(%2F(%3F%3C%3DprojectId%3D)%5Cd%2B%2F.exec(window.location.href)%2C%200)%3Bvar%20res1%20%3D%20await%20getPeopleFromProject(projectId%2C%200)%3Bvar%20searchHits2%20%3D%20res1%20%26%26%20res1.result%20%26%26%20res1.result.searchHits%20%26%26%20res1.result.searchHits.length%20%3F%20res1.result.searchHits%20%3A%20%5B%5D%3Bvar%20total%20%3D%20res1%20%26%26%20res1.result%20%26%26%20res1.result.paging%20%26%26%20res1.result.paging.total%20%3F%20res1.result.paging.total%20%3A%200%3Bif%20(total%20%3D%3D%200)%20%7Bconsole.log('failed%20to%20get%20the%20total%20number%20of%20people%20in%20project')%3B%7Delse%7Bif%20(searchHits2.length%20%3E%200)%20searchHits2.forEach(el%20%3D%3E%20containArr.push(el))%3Bfor%20(var%20i%20%3D%2025%3B%20i%20%3C%20total%3B%20i%20%3D%20i%20%2B%2025)%20%7Bvar%20res%20%3D%20await%20getPeopleFromProject(projectId%2C%20i)%3Bvar%20searchHits%20%3D%20res%20%26%26%20res.result%20%26%26%20res.result.searchHits%20%26%26%20res.result.searchHits.length%20%3F%20res.result.searchHits%20%3A%20%5B%5D%3Bgi(document%2C'downloading_percentage_bar').style.width%20%3D%20%60%24%7B(330*(i%2Ftotal))%7Dpx%60%3Bgi(document%2C'downloading_percentage_txt').innerText%20%3D%20%60%24%7BMath.ceil((i%2Ftotal)*100)%7D%25%20complete%60%3Bif%20(searchHits.length%20%3E%200)%20%7BsearchHits.forEach(el%20%3D%3E%20%7Bif(containArr.every(itm%3D%3E%20el.niid%20!%3D%20itm.niid))%20containArr.push(el)%3B%7D)%3B%7Dawait%20delay(rando(2020)%2B400)%3B%7Dgi(document%2C'downloading_percentage_bar').style.width%20%3D%20%60330px%60%3Bgi(document%2C'downloading_percentage_txt').innerText%20%3D%20%60100%25%20complete%60%3BdownloadAsTsv(containArr)%3B%7D%7Dfunction%20createDownloadHTML()%7Bif(gi(document%2C'downloading_notifier'))%20gi(document%2C'downloading_notifier').outerHTML%20%3D%20''%3Bvar%20cont%20%20%3D%20ele('div')%3Ba(cont%2C%5B%5B'id'%2C%20'downloading_notifier'%5D%2C%5B'style'%2C%60position%3A%20fixed%3B%20top%3A%20100px%3B%20left%3A%2010%25%3B%20width%3A%20330px%3B%20z-index%3A%20%24%7Bnew%20Date().getTime()%7D%3B%20background%3A%20%23121212%3B%20border%3A%201px%20solid%20%233de367%3B%20border-radius%3A%200.2em%3B%60%5D%5D)%3Bdocument.body.appendChild(cont)%3Bvar%20perc%20%3D%20ele('div')%3Ba(perc%2C%5B%5B'id'%2C'downloading_percentage_bar'%5D%2C%5B'style'%2C%60width%3A%200px%3B%20height%3A%2050px%3B%20background%3A%20%233de367%3B%20border%3A%201px%20solid%20%233de367%3B%20border-bottom-right-radius%3A%200.2em%3B%20border-top-right-radius%3A%200.2em%3B%60%5D%5D)%3Bcont.appendChild(perc)%3Bvar%20txt%20%3D%20ele('div')%3Ba(txt%2C%5B%5B'id'%2C'downloading_percentage_txt'%5D%2C%5B'style'%2C%60float%3A%20left%3B%20padding%3A%2014px%3B%20color%3A%20%23fff%3B%20width%3A%20300px%3B%60%5D%5D)%3Bperc.appendChild(txt)%3Btxt.innerText%20%3D%20'initiating%20download...'%3B%7Dfunction%20downloadr(arr2D%2C%20filename)%20%7Bvar%20data%20%3D%20%2F%5C.json%24%7C.js%24%2F.test(filename)%20%3F%20JSON.stringify(arr2D)%20%3A%20arr2D.map(el%20%3D%3E%20el.reduce((a%2C%20b)%20%3D%3E%20a%20%2B%20'%5Ct'%20%2B%20b)).reduce((a%2C%20b)%20%3D%3E%20a%20%2B%20'%5Cr'%20%2B%20b)%3Bvar%20type%20%3D%20%2F%5C.json%24%7C.js%24%2F.test(filename)%20%3F%20'data%3Aapplication%2Fjson%3Bcharset%3Dutf-8%2C'%20%3A%20'data%3Atext%2Fplain%3Bcharset%3Dutf-8%2C'%3Bvar%20file%20%3D%20new%20Blob(%5Bdata%5D%2C%20%7Btype%3A%20type%7D)%3Bif%20(window.navigator.msSaveOrOpenBlob)%20%7Bwindow.navigator.msSaveOrOpenBlob(file%2C%20filename)%3B%7D%20else%20%7Bvar%20a%20%3D%20document.createElement('a')%2Curl%20%3D%20URL.createObjectURL(file)%3Ba.href%20%3D%20url%3Ba.download%20%3D%20filename%3Bdocument.body.appendChild(a)%3Ba.click()%3BsetTimeout(()%20%3D%3E%20%7Bdocument.body.removeChild(a)%3Bwindow.URL.revokeObjectURL(url)%3B%7D%2C%2010)%3B%7D%7Dfunction%20downloadAsTsv(arr)%7Bvar%20projectId%20%3D%20reg(%2F(%3F%3C%3DprojectId%3D)%5Cd%2B%2F.exec(window.location.href)%2C%200)%3Bvar%20header%20%3D%20%5B%5B'Public%20Profile'%2C'LIR%20Profile'%2C'First%20Name'%2C'Last%20Name'%2C'Location'%2C'Current%20Employer'%2C'Current%20Title'%2C'Months%20in%20Current%20Job'%2C'Previous%20Employer'%2C'Previous%20Title'%2C'Months%20in%20Previous%20Job'%2C'Education%201'%2C'Education%201%20Date'%2C'Education%202'%2C'Education%202%20Date'%2C'Status'%2C'Job%20Seeker'%2C'Preferred%20Titles'%2C'Email'%2C'Phone'%2C'Applications'%2C'Notes'%5D%5D%3Bvar%20tsv%20%3D%20arr.map(el%3D%3E%20to2dArr(el))%3Bvar%20table%20%3D%20header.concat(tsv)%3Bdownloadr(table%2C%20%60%24%7BprojectId%7D_%24%7Bnew%20Date().getTime()%7D_.tsv%60)%3B%7Dfunction%20getTimeInJob(job)%20%7Bif(job)%7Bvar%20start%20%3D%20job%20%3F%20parseDate(job.i18nStartDate)%20%3A%20now%3Bvar%20end%20%3D%20job%20%3F%20parseDate(job.i18nEndDate)%20%3A%20now%3Bvar%20timeInJob%20%3D%20milsec2Month(end%20-%20start)%20%3F%20milsec2Month(end%20-%20start)%20%3A%200%3Breturn%20timeInJob%3B%7Delse%7Breturn%20''%3B%7D%7Dfunction%20getStatus(obj%2C%20id)%20%7Bvar%20status%20%3D%20obj.projectStatuses%3Bif%20(status)%20%7Bfor%20(var%20i%20%3D%200%3B%20i%20%3C%20status.length%3B%20i%2B%2B)%20%7Bif%20(status%5Bi%5D.projectId%20%3D%3D%20id)%20%7Breturn%20status%5Bi%5D.status.text%3B%7D%7D%7D%20else%20%7Breturn%20''%3B%7D%7Dfunction%20to2dArr(obj)%20%7Bvar%20curUrl%20%3D%20window.location.href%3Bvar%20projectId%20%3D%20reg(%2F(%3F%3C%3DprojectId%3D)%5Cd%2B%2F.exec(curUrl)%2C%200)%3Bvar%20status%20%3D%20getStatus(obj%2C%20projectId)%3Bvar%20csvReady%20%3D%20(s)%20%3D%3E%20s.replace(%2F%26amp%3B%2Fg%2C%20'%26').replace(%2F%26quot%3B%2Fg%2C%20'%22').replace(%2F%5Ct%2Fg%2C'%20')%3Bvar%20validx%20%3D%20(el)%20%3D%3E%20el%20%3F%20el%20%3A%20null%3Bvar%20seekingJob%20%3D%20obj.isJobSeeker%20%7C%7C%20obj.careerInterests%20%3F%20'yes'%20%3A%20'no'%3Bvar%20seekingTitleArr%20%3D%20obj.careerInterests%20%3F%20obj.careerInterests.interestedTitles%20%3A%20null%3Bvar%20seekingTitles%20%3D%20seekingTitleArr%20%3F%20seekingTitleArr.toString()%20%3A%20''%3Bvar%20lirPathLink%20%3D%20'https%3A%2F%2Fwww.linkedin.com%2Frecruiter%2Fprofile%2F'%20%2B%20obj.memberId%20%2B%20'%2C'%20%2B%20obj.authToken%20%2B%20'%2C'%20%2B%20obj.authType%3Bvar%20job1%20%3D%20obj.positions%20%3F%20validx(obj.positions%5B0%5D)%20%3A%20null%3Bvar%20job2%20%3D%20obj.positions%20%3F%20validx(obj.positions%5B1%5D)%20%3A%20null%3Bvar%20jobTime1%20%3D%20job1%20%3F%20getTimeInJob(job1)%20%3A%200%3Bvar%20jobTime2%20%3D%20job2%20%3F%20getTimeInJob(job2)%20%3A%200%3Bvar%20empl1%20%3D%20job1%20%3F%20noHtmlEntities(reChar(job1.companyName))%20%3A%20'%20'%3Bvar%20empl2%20%3D%20job2%20%3F%20noHtmlEntities(reChar(job2.companyName))%20%3A%20'%20'%3Bvar%20title1%20%3D%20job1%20%3F%20noHtmlEntities(reChar(job1.title))%20%3A%20'%20'%3Bvar%20title2%20%3D%20job2%20%3F%20noHtmlEntities(reChar(job2.title))%20%3A%20'%20'%3Bvar%20publink%20%3D%20'www.linkedin.com%2Fin%2F'%20%2B%20obj.niid%3Bvar%20edu1%20%3D%20obj.educations%20%26%26%20obj.educations%5B0%5D%20%3F%20obj.educations%5B0%5D.schoolName%20%3A%20'%20'%3Bvar%20edu2%20%3D%20obj.educations%20%26%26%20obj.educations%5B1%5D%20%3F%20obj.educations%5B1%5D.schoolName%20%3A%20'%20'%3Bvar%20edu1end%20%3D%20obj.educations%20%26%26%20obj.educations%5B0%5D%20%3F%20obj.educations%5B0%5D.i18nEndDate%20%3A%20'%20'%3Bvar%20edu2end%20%3D%20obj.educations%20%26%26%20obj.educations%5B1%5D%20%3F%20obj.educations%5B1%5D.i18nEndDate%20%3A%20'%20'%3Bvar%20emailArr%20%3D%20obj.contactEmails%20%3F%20obj.contactEmails%20%3A%20%5B%5D%3Bvar%20emails%20%3D%20emailArr.length%20%3E%200%20%3F%20emailArr.map(m%20%3D%3E%20m.email).toString()%20%3A%20null%3Bvar%20phoneArr%20%3D%20obj.contactPhones%20%3F%20obj.contactPhones%20%3A%20%5B%5D%3Bvar%20phones%20%3D%20phoneArr.length%20%3E%200%20%3F%20phoneArr.map(m%20%3D%3E%20m.phone).toString()%20%3A%20null%3Bvar%20appArr%20%3D%20obj.jobApplications%20%3F%20obj.jobApplications%20%3A%20%5B%5D%3Bvar%20apps%20%3D%20appArr.length%20%3E%200%20%3F%20appArr.map(m%20%3D%3E%20m.applyStarterJobId).toString()%20%3A%20null%3Bvar%20noteArr%20%3D%20obj.notes%20%3F%20obj.notes%20%3A%20%5B%5D%3Bvar%20notes%20%3D%20noteArr.length%20%3E%200%20%3F%20noHtmlEntities(noteArr.map(m%20%3D%3E%20m.note.replace(%2F%5Cn%2Fg%2C%20'%20_%20')).toString())%20%3A%20null%3Bvar%20emailX%20%3D%20%2F%5B%5Cw%7C%5C.%5D%2B%40%5CS%2B%5C.%5Ba-zA-Z%5D%2B%2F%3Bvar%20phoneX%20%3D%20%2F((%5Cd%2B%5CW*)%5Cd*%7C)%5Cd%7B3%7D%5CW*%5Cd%7B3%7D%5CW*%5Cd%7B4%7D%2F%3Bvar%20em%20%3D%20(emailX.test(notes)%20%3D%3D%3D%20true%20%26%26%20emailX.test(emails)%20%3D%3D%3D%20false)%20%3F%20reg(emailX.exec(notes)%2C%200)%20%3A%20emails%3Bvar%20ph%20%3D%20(phoneX.test(notes)%20%3D%3D%3D%20true%20%26%26%20phoneX.test(phones)%20%3D%3D%3D%20false)%20%3F%20reg(phoneX.exec(notes)%2C%200)%20%3A%20phones%3Breturn%20%5Bpublink%2ClirPathLink%2CfixCase(noHtmlEntities(reChar(obj.firstName)))%2CfixCase(noHtmlEntities(reChar(obj.lastName)))%2CcsvReady(obj.location)%2CnoHtmlEntities(reChar(csvReady(empl1)))%2CnoHtmlEntities(reChar(csvReady(title1)))%2CjobTime1%20!%3D%20undefined%20%3F%20jobTime1%20%3A%20'%20'%2CnoHtmlEntities(reChar(csvReady(empl2)))%2CnoHtmlEntities(reChar(csvReady(title2)))%2CjobTime2%20!%3D%20undefined%20%3F%20jobTime2%20%3A%20'%20'%2CnoHtmlEntities(reChar(csvReady(edu1)))%2Cedu1end%20!%3D%20undefined%20%3F%20edu1end%20%3A%20'%20'%2CnoHtmlEntities(reChar(csvReady(edu2)))%2Cedu2end%20!%3D%20undefined%20%3F%20edu2end%20%3A%20'%20'%2Cstatus%2CseekingJob%2CseekingTitles%2Cem%20%3F%20em%20%3A%20''%2Cph%20%3F%20ph%20%3A%20''%2Capps%20%3F%20apps%20%3A%20''%2Cnotes%20%3F%20notes%20%3A%20''%5D%3B%7DgetAllPeopleFromProject()%3B%7DinitProjectDownloader()%7D)()
+async function initProjectDownloader(){
+  var reg = (o, n) => o ? o[n] : '';
+  var cn = (o, s) => o ? o.getElementsByClassName(s) : console.log(o);
+  var tn = (o, s) => o ? o.getElementsByTagName(s) : console.log(o);
+  var gi = (o, s) => o ? o.getElementById(s) : console.log(o);
+  var noHTML = (s) => s ? s.replace(/<.+?>/g, '').replace(/\s+/g, ' ').replace(/&.+?;/g, '') : '';
+  var delay = (ms) => new Promise(res => setTimeout(res, ms));
+  var cleanName = (s) => s ? s.replace(/(?<=^.+?)\s+-\s+.+|(?<=^.+?)\s*[sSJj][Rr].+|(?<=^.+?)\s*(III|IV|II).*|(?<=^.+?)\b,.*|(?<=^.+?)\s*\(.*/, '') : '';
+  var fixCase = (s) => s ? s.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) : s;
+  var timer = new Date().getTime().toString().replace(/\d{4}$/, '0000');
+  var rando = (n) => Math.round(Math.random() * n);
+  var fixDate = (s) => s ? s.replace(/[a-zA-Z]+/, s.replace(/(?<=[a-zA-Z]{3}).+/g, '')) : '';
+  var parseDate = (o) => o ? new Date(o).getTime() : now;
+  var milsec2Month = (n) => Math.round(n / 2.628e+9);
+  var now = new Date().getTime();
+
+  var ele = (t) => document.createElement(t);
+  var attr = (o, k, v) => o.setAttribute(k, v);
+
+  var a = (l, r) => r.forEach(a => attr(l, a[0], a[1]));
+
+  var reChar = (s) => typeof s == 'string' && s.match(/&#\d+;/g) && s.match(/&#\d+;/g).length > 0 ? s.match(/&#\d+;/g).map(el => [el, String.fromCharCode(reg(/(?<=&#).+?(?=;)/.exec(el),0))]).map(m => s = s.replace(new RegExp(m[0], 'i'), m[1])).pop() : s;
+  var noHtmlEntities = (s) => typeof s == 'string' ? s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, ' ') : s;
+
+  async function getPeopleFromProject(id, p) {
+    var res = await fetch("https://www.linkedin.com/recruiter/api/projects/" + id + "/profiles?count=25&start=" + p);
+    var d = await res.json();
+    console.log(d);
+    return d;
+  }
+
+  async function getAllPeopleFromProject() {
+    createDownloadHTML();
+    var containArr = [];
+    var projectId = reg(/(?<=projectId=)\d+/.exec(window.location.href), 0);
+    var res1 = await getPeopleFromProject(projectId, 0);
+    var searchHits2 = res1 && res1.result && res1.result.searchHits && res1.result.searchHits.length ? res1.result.searchHits : [];
+
+    var total = res1 && res1.result && res1.result.paging && res1.result.paging.total ? res1.result.paging.total : 0;
+    if (total == 0) {
+      console.log('failed to get the total number of people in project');
+    }else{
+      if (searchHits2.length > 0) searchHits2.forEach(el => containArr.push(el));
+
+      for (var i = 25; i < total; i = i + 25) { 
+        var res = await getPeopleFromProject(projectId, i);
+        var searchHits = res && res.result && res.result.searchHits && res.result.searchHits.length ? res.result.searchHits : [];
+        
+        gi(document,'downloading_percentage_bar').style.width = `${(330*(i/total))}px`;
+        gi(document,'downloading_percentage_txt').innerText = `${Math.ceil((i/total)*100)}% complete`;
+        if (searchHits.length > 0) {
+          searchHits.forEach(el => {
+            if(containArr.every(itm=> el.niid != itm.niid)) containArr.push(el);
+          });
+        }
+        await delay(rando(2020)+400);
+      }
+      gi(document,'downloading_percentage_bar').style.width = `330px`;
+      gi(document,'downloading_percentage_txt').innerText = `100% complete`;
+     downloadAsTsv(containArr);
+    }
+  }
+
+  function createDownloadHTML(){
+    if(gi(document,'downloading_notifier')) gi(document,'downloading_notifier').outerHTML = '';
+    var cont  = ele('div');
+    a(cont,[['id', 'downloading_notifier'],['style',`position: fixed; top: 100px; left: 10%; width: 330px; z-index: ${new Date().getTime()}; background: #121212; border: 1px solid #3de367; border-radius: 0.2em;`]]);
+    document.body.appendChild(cont);
+    
+    var perc = ele('div');
+    a(perc,[['id','downloading_percentage_bar'],['style',`width: 0px; height: 50px; background: #3de367; border: 1px solid #3de367; border-bottom-right-radius: 0.2em; border-top-right-radius: 0.2em;`]]); 
+    cont.appendChild(perc);
+   
+    var txt = ele('div');
+    a(txt,[['id','downloading_percentage_txt'],['style',`float: left; padding: 14px; color: #fff; width: 300px;`]]);
+    perc.appendChild(txt);
+    txt.innerText = 'initiating download...';
+  }
+
+  function downloadr(arr2D, filename) {
+    var data = /\.json$|.js$/.test(filename) ? JSON.stringify(arr2D) : arr2D.map(el => el.reduce((a, b) => a + '\t' + b)).reduce((a, b) => a + '\r' + b);
+    var type = /\.json$|.js$/.test(filename) ? 'data:application/json;charset=utf-8,' : 'data:text/plain;charset=utf-8,';
+    var file = new Blob([data], {
+      type: type
+    });
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveOrOpenBlob(file, filename);
+    } else {
+      var a = document.createElement('a'),
+      url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 10);
+    }
+  }
+  function downloadAsTsv(arr){
+    var projectId = reg(/(?<=projectId=)\d+/.exec(window.location.href), 0);
+    var header = [[
+    'Public Profile',
+    'LIR Profile',
+    'First Name',
+    'Last Name',
+    'Location',
+    'Current Employer',
+    'Current Title',
+    'Months in Current Job',
+    'Previous Employer',
+    'Previous Title',
+    'Months in Previous Job',
+    'Education 1',
+    'Education 1 Date',
+    'Education 2',
+    'Education 2 Date',
+    'Status',
+    'Job Seeker',
+    'Preferred Titles',
+    'Email',
+    'Phone',
+    'Applications',
+    'Notes'
+    ]];
+    var tsv = arr.map(el=> to2dArr(el));
+    var table = header.concat(tsv);
+    downloadr(table, `${projectId}_${new Date().getTime()}_.tsv`);
+  }
+
+  function getTimeInJob(job) {
+    if(job){
+      var start = job ? parseDate(job.i18nStartDate) : now;
+      var end = job ? parseDate(job.i18nEndDate) : now;
+      var timeInJob = milsec2Month(end - start) ? milsec2Month(end - start) : 0;
+      return timeInJob;
+    }else{
+      return '';
+    }
+  }
+
+  function getStatus(obj, id) {
+    var status = obj.projectStatuses;
+    if (status) {
+      for (var i = 0; i < status.length; i++) {
+        if (status[i].projectId == id) {
+          return status[i].status.text;
+        }
+      }
+    } else {
+      return '';
+    }
+  }
+
+  function to2dArr(obj) {
+    var curUrl = window.location.href;
+    var projectId = reg(/(?<=projectId=)\d+/.exec(curUrl), 0);
+    var status = getStatus(obj, projectId);
+    var csvReady = (s) => s ? s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\t/g,' ') : '';
+    var validx = (el) => el ? el : null;
+    var seekingJob = obj.isJobSeeker || obj.careerInterests ? 'yes' : 'no';
+    var seekingTitleArr = obj.careerInterests ? obj.careerInterests.interestedTitles : null;
+    var seekingTitles = seekingTitleArr ? seekingTitleArr.toString() : '';
+    var lirPathLink = 'https://www.linkedin.com/recruiter/profile/' + obj.memberId + ',' + obj.authToken + ',' + obj.authType;
+    var job1 = obj.positions ? validx(obj.positions[0]) : null;
+    var job2 = obj.positions ? validx(obj.positions[1]) : null;
+    var jobTime1 = job1 ? getTimeInJob(job1) : 0;
+    var jobTime2 = job2 ? getTimeInJob(job2) : 0;
+    var empl1 = job1 ? noHtmlEntities(reChar(job1.companyName)) : ' ';
+    var empl2 = job2 ? noHtmlEntities(reChar(job2.companyName)) : ' ';
+    var title1 = job1 ? noHtmlEntities(reChar(job1.title)) : ' ';
+    var title2 = job2 ? noHtmlEntities(reChar(job2.title)) : ' ';
+    var publink = 'www.linkedin.com/in/' + obj.niid;
+    var edu1 = obj.educations && obj.educations[0] ? obj.educations[0].schoolName : ' ';
+    var edu2 = obj.educations && obj.educations[1] ? obj.educations[1].schoolName : ' ';
+    var edu1end = obj.educations && obj.educations[0] ? obj.educations[0].i18nEndDate : ' ';
+    var edu2end = obj.educations && obj.educations[1] ? obj.educations[1].i18nEndDate : ' ';
+    var emailArr = obj.contactEmails ? obj.contactEmails : [];
+    var emails = emailArr.length > 0 ? emailArr.map(m => m.email).toString() : null;
+    var phoneArr = obj.contactPhones ? obj.contactPhones : [];
+    var phones = phoneArr.length > 0 ? phoneArr.map(m => m.phone).toString() : null;
+    var appArr = obj.jobApplications ? obj.jobApplications : [];
+    var apps = appArr.length > 0 ? appArr.map(m => m.applyStarterJobId).toString() : null;
+    var noteArr = obj.notes ? obj.notes : [];
+    var notes = noteArr.length > 0 ? noHtmlEntities(noteArr.map(m => m.note.replace(/\n/g, ' _ ')).toString()) : null;
+    var emailX = /[\w|\.]+@\S+\.[a-zA-Z]+/;
+    var phoneX = /((\d+\W*)\d*|)\d{3}\W*\d{3}\W*\d{4}/;
+    var em = (emailX.test(notes) === true && emailX.test(emails) === false) ? reg(emailX.exec(notes), 0) : emails;
+    var ph = (phoneX.test(notes) === true && phoneX.test(phones) === false) ? reg(phoneX.exec(notes), 0) : phones;
+    return [
+    publink, 
+    lirPathLink, 
+    fixCase(noHtmlEntities(reChar(obj.firstName))),
+    fixCase(noHtmlEntities(reChar(obj.lastName))),
+    csvReady(obj.location),
+    noHtmlEntities(reChar(csvReady(empl1))),
+    noHtmlEntities(reChar(csvReady(title1))), 
+    jobTime1 != undefined ? jobTime1 : ' ',
+    noHtmlEntities(reChar(csvReady(empl2))), 
+    noHtmlEntities(reChar(csvReady(title2))),
+    jobTime2 != undefined ? jobTime2 : ' ',
+    noHtmlEntities(reChar(csvReady(edu1))),
+    edu1end != undefined ? edu1end : ' ',
+    noHtmlEntities(reChar(csvReady(edu2))),
+    edu2end != undefined ? edu2end : ' ',
+    status,
+    seekingJob,
+    seekingTitles,
+    em ? em : '',
+    ph ? ph : '',
+    apps ? apps : '',
+    notes ? notes : ''
+    ];
+  }
+
+  getAllPeopleFromProject();
+}
+
+ 
+initProjectDownloader();
