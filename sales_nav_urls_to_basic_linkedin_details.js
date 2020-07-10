@@ -133,8 +133,8 @@ function creds(creds) {
         "accept-language": "en-US,en;q=0.9",
         "csrf-token": creds.csrf,
         "x-li-lang": "en_US",
-        "x-li-page-instance": "urn:li:page:d_flagship3_profile_view_base;" + trackingId,
-        "x-li-track": "{\"clientVersion\":\"" + creds.client_version + "\",\"osName\":\"web\",\"timezoneOffset\":" + timeOffset + ",\"deviceFormFactor\":\"DESKTOP\",\"mpName\":\"voyager-web\"}",
+        "x-li-page-instance": "urn:li:page:d_flagship3_profile_view_base;" + creds.tracking_id,
+        "x-li-track": "{\"clientVersion\":\"" + creds.client_version + "\",\"osName\":\"web\",\"timezoneOffset\":" + creds.time_offset + ",\"deviceFormFactor\":\"DESKTOP\",\"mpName\":\"voyager-web\"}",
         "x-restli-protocol-version": "2.0.0"
       },
       "referrer": "https://www.linkedin.com/feed/",
